@@ -65,11 +65,14 @@
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.4.10</version>
         <configuration>
+          <!--创建的每个Docker镜像都会由一个与之关联的标签。Spotify插件将使用 ${docker.image.tag}标签中定义名称命名创建的镜像}-->
           <imageName>${docker.image.name}:${docker.image.tag}</imageName>
+          <!--创建的每个Docker镜像都是使用Dockerfile创建的。Dockerfile用于详细说明如何提供Docker镜像-->
           <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
           <resources>
             <resource>
               <targetPath>/</targetPath>
+              <!-- 当执行 Spotify 插件时，它会将服务的可执行jar复制到Docker镜像中-->
               <directory>${project.build.directory}</directory>
               <include>${project.build.finalName}.jar</include>
             </resource>
